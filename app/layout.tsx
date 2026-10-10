@@ -6,8 +6,8 @@ import { DemoProvider } from "@/providers/demo-provider";
 import { WorkspaceShell } from "@/components/workspace-shell";
 
 export const metadata: Metadata = {
-  title: "Rentos — Event operations",
-  description: "Event rental and booking management demo."
+  title: "HSEvents — Event operations",
+  description: "HSEvents event rental and booking management."
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

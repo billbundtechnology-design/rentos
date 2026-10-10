@@ -23,7 +23,7 @@ export default function ReportsPage() {
     const blob = new Blob([rows.map((row) => row.join(",")).join("\n")], { type: "text/csv;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
-    anchor.href = url; anchor.download = "rentos-demo-report.csv"; anchor.click();
+    anchor.href = url; anchor.download = "hsevents-demo-report.csv"; anchor.click();
     URL.revokeObjectURL(url);
   }
   return <section className="panel"><SectionHeading title="Business performance" text="Figures calculated from the shared demo dataset." action={<div className="button-row"><select aria-label="Report period"><option>All demo dates</option><option>This quarter</option><option>This year</option></select><Button onClick={downloadReport}><Download size={14} aria-hidden="true" /> Export CSV</Button></div>} />

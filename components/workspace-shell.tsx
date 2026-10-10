@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import {
   ArrowLeftToLine, ArrowRight, Bell, CalendarDays, ChartNoAxesCombined, ClipboardList,
   CreditCard, House, LayoutGrid, LifeBuoy, Menu, Package, Settings,
@@ -50,6 +51,7 @@ function todayLabel() {
 }
 
 export function WorkspaceShell({ children }: { children: ReactNode }) {
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const pathname = usePathname();
   const isLoginPage = pathname === "/login";
   const activePath = pathname === "/" ? "/overview" : pathname;
@@ -59,16 +61,16 @@ export function WorkspaceShell({ children }: { children: ReactNode }) {
 
   if (isLoginPage) return <>{children}</>;
 
-  return <div className="app-shell">
+  return <div className={`app-shell${sidebarCollapsed ? " sidebar-collapsed" : ""}`}>
     <aside className="sidebar">
-      <div className="brand"><div className="brand-mark">R</div><span>rentos<small>EVENT OPERATIONS</small></span><button className="collapse" aria-label="Collapse sidebar" onClick={(event) => event.currentTarget.closest(".sidebar")?.classList.toggle("collapsed")}><ArrowLeftToLine size={17} aria-hidden="true" /></button></div>
+      <div className="brand"><Image className="brand-logo" src="/logo.jpeg" alt="HSEvents" width={42} height={42} priority /><span>HSEvents<small>EVENT OPERATIONS</small></span><button className="collapse" aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"} aria-expanded={!sidebarCollapsed} onClick={() => setSidebarCollapsed((collapsed) => !collapsed)}>{sidebarCollapsed ? <ArrowRight size={17} aria-hidden="true" /> : <ArrowLeftToLine size={17} aria-hidden="true" />}</button></div>
       <div className="workspace-label">WORKSPACE</div>
       <nav className="main-nav" aria-label="Main navigation">{navigation.map(([label, href, Icon]) => <Link key={href} href={href} className={activePath === href ? "active" : ""} onClick={(event) => event.currentTarget.closest(".sidebar")?.classList.remove("mobile-open")}><span className="nav-icon"><Icon size={16} strokeWidth={1.8} aria-hidden="true" /></span><span>{label}</span>{label === "Dispatch & Returns" && <i className="nav-count">2</i>}</Link>)}</nav>
       <div className="sidebar-bottom"><div className="help-card"><span><LifeBuoy size={16} aria-hidden="true" /></span><b>Need a hand?</b><small>Visit the demo help centre</small><button onClick={() => toast("The help centre is unavailable in this visual demo.")}>Explore help <ArrowRight size={12} aria-hidden="true" /></button></div><div className="sidebar-profile"><div className="avatar">TA</div><div><b>Tola Akinyemi</b><small>Workspace admin</small></div><button className="more-button" aria-label="Profile menu" onClick={() => toast("Demo profile menu.")}><Ellipsis size={17} aria-hidden="true" /></button></div></div>
     </aside>
     <main className="main-area">
       <header className="topbar"><button className="mobile-menu-button" aria-label="Open navigation" onClick={() => document.querySelector(".sidebar")?.classList.toggle("mobile-open")}><Menu size={19} aria-hidden="true" /></button><div className="breadcrumbs">Workspace <span>/</span> <b>{title}</b></div><div className="top-actions"><div className="global-search"><span><Search size={15} aria-hidden="true" /></span><input aria-label="Global search" placeholder="Search anything..." onKeyDown={(event) => { if (event.key === "Enter") toast("Use the search controls on each page to filter demo data."); }} /><kbd>⌘ K</kbd></div><button className="icon-button notification" aria-label="Notifications" onClick={() => toast("You’re all caught up.")}><Bell size={16} aria-hidden="true" /><i /></button><div className="top-user"><div className="avatar">TA</div><span><b>Tola Akinyemi</b><small>Admin</small></span><span className="chevron"><ChevronDown size={14} aria-hidden="true" /></span></div></div></header>
-      <div className="content-area"><div className="page-heading"><div><div className="eyebrow">{todayLabel()} <span className="demo-pill">DEMO</span></div><h1>{title === "Overview" ? "Good morning, Tola" : title}</h1><p>{descriptions[title]}</p></div>{title === "Overview" && <Button variant="primary" onClick={() => openBooking()}><Plus size={15} aria-hidden="true" /> Create booking</Button>}</div>{children}<footer>Rentos demo workspace <span>·</span> All data is illustrative and stored locally <span>·</span> WAT (UTC+1)</footer></div>
+      <div className="content-area"><div className="page-heading"><div><div className="eyebrow">{todayLabel()} <span className="demo-pill">DEMO</span></div><h1>{title === "Overview" ? "Good morning, Tola" : title}</h1><p>{descriptions[title]}</p></div>{title === "Overview" && <Button variant="primary" onClick={() => openBooking()}><Plus size={15} aria-hidden="true" /> Create booking</Button>}</div>{children}<footer>HSEvents demo workspace <span>·</span> All data is illustrative and stored locally <span>·</span> WAT (UTC+1)</footer></div>
     </main>
     <DemoDialogs />
   </div>;

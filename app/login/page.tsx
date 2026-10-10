@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { FormEvent, useState } from "react";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 
@@ -17,7 +18,7 @@ export default function LoginPage() {
 
   return <main className="login-page">
     <section className="login-brand-panel">
-      <Link href="/" className="login-wordmark" aria-label="Rentos home"><span className="login-brand-mark">R</span><span>rentos<small>EVENT OPERATIONS</small></span></Link>
+      <Link href="/" className="login-wordmark" aria-label="HSEvents home"><Image className="login-brand-logo" src="/logo.jpeg" alt="" width={48} height={48} priority /><span>HSEvents<small>EVENT OPERATIONS</small></span></Link>
       <div className="login-quote">
         <span className="login-quote-mark">“</span>
         <h1>Great events don’t just happen.<br /><em>They come together.</em></h1>
@@ -31,7 +32,7 @@ export default function LoginPage() {
         <div className="login-art-chair chair-b"><i /><b /></div>
         <div className="login-art-leaves"><i /><i /><i /><i /><i /></div>
       </div>
-      <div className="login-panel-footer"><span>RENTOS EVENTS & RENTALS</span><span>LAGOS, NIGERIA · WAT (UTC+1)</span></div>
+      <div className="login-panel-footer"><span>HSEVENTS · EVENTS & RENTALS</span><span>LAGOS, NIGERIA · WAT (UTC+1)</span></div>
     </section>
     <section className="login-form-panel">
       <div className="login-topline"><span className="login-demo-label"><i /> DEMO WORKSPACE</span><Link href="/overview">Back to workspace <ArrowUpRight size={14} aria-hidden="true" /></Link></div>
@@ -47,12 +48,12 @@ export default function LoginPage() {
           <div className="login-password-label"><label htmlFor="login-password">Password</label><button type="button" onClick={() => setMessage("Password reset is unavailable in this visual demo.")}>Forgot password?</button></div>
           <div className="login-password-input"><input id="login-password" name="password" type={showPassword ? "text" : "password"} autoComplete="current-password" required placeholder="Enter your password" value={password} onChange={(event) => setPassword(event.target.value)} /><button type="button" aria-label={showPassword ? "Hide password" : "Show password"} onClick={() => setShowPassword((shown) => !shown)}>{showPassword ? "Hide" : "Show"}</button></div>
           <label className="remember-option"><input type="checkbox" /> <span>Keep me signed in</span></label>
-          <button className="login-submit" type="submit">Sign in to Rentos <ArrowUpRight size={15} aria-hidden="true" /></button>
+          <button className="login-submit" type="submit">Sign in to HSEvents <ArrowUpRight size={15} aria-hidden="true" /></button>
         </form>
         {message && <p className="login-message" role="status">{message}</p>}
         <p className="login-help">Need a hand? Talk to your workspace admin.</p>
       </div>
-      <footer className="login-legal"><span>© 2026 Rentos Events</span><span>Private workspace · Demo environment</span></footer>
+      <footer className="login-legal"><span>© 2026 HSEvents</span><span>Private workspace · Demo environment</span></footer>
     </section>
   </main>;
 }
