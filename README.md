@@ -28,3 +28,4 @@ The strongly typed seed data lives in `lib/demo-data.ts`. It supplies shared boo
 
 The UI deliberately does not connect to a server, database, payment provider, or external business API. Customer details and transactions are illustrative placeholders; payment actions update only in-memory demo records.
 # rentos
+# rentos
