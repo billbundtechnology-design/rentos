@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./inventory.css";
 import "./login.css";
+import { AuthProvider } from "@/providers/auth-provider";
 import { DemoProvider } from "@/providers/demo-provider";
 import { WorkspaceShell } from "@/components/workspace-shell";
 
@@ -11,5 +12,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body><DemoProvider><WorkspaceShell>{children}</WorkspaceShell></DemoProvider></body></html>;
+  return <html lang="en"><body><AuthProvider><DemoProvider><WorkspaceShell>{children}</WorkspaceShell></DemoProvider></AuthProvider></body></html>;
 }
